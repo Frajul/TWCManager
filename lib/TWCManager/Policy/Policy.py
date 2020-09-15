@@ -186,6 +186,10 @@ class Policy:
             self.active_policy = str(policy["name"])
             self.limitOverride = False
             self.fireWebhook("enter")
+            for module in self.master.getModulesByType("Status"):
+                module["ref"].setStatus(
+                    bytes("all", "UTF-8"), "policy", "policy", self.active_policy, ""
+                )
 
         if updateLatch and "latch_period" in policy:
             policy["__latchTime"] = time.time() + policy["latch_period"] * 60
