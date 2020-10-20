@@ -418,6 +418,7 @@ class TWCSlave:
             self.masterHeartbeatData = self.master.getMasterHeartbeatOverride()
 
         if self.protocolVersion == 2:
+            print("Last amps offered: " + str(self.lastAmpsOffered) + "; Amps actual: " + str(self.reportedAmpsActual) + "; Reported state: " + str(self.reportedState))
             # TODO: Start and stop charging using protocol 2 commands to TWC
             # instead of car api if I ever figure out how.
             if self.lastAmpsOffered == 0 and self.reportedAmpsActual > 4.0:
