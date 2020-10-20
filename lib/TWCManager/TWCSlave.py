@@ -323,10 +323,6 @@ class TWCSlave:
         # Heartbeat includes 7 bytes (Protocol 1) or 9 bytes (Protocol 2) of data
         # that we store in masterHeartbeatData.
 
-        if self.master.settings.get("respondToSlaves", 1) == 0:
-            # We have been instructed not to send master heartbeats
-            return
-
         # Meaning of data:
         #
         # Byte 1 is a command:
@@ -452,6 +448,10 @@ class TWCSlave:
                     "TeslaAPI"
                 ).getCarApiVehicles():
                     vehicle.stopAskingToStartCharging = False
+
+        if self.master.settings.get("respondToSlaves", 1) == 0:
+            # We have been instructed not to send master heartbeats
+            return
 
         self.master.getModuleByName("RS485").send(
             bytearray(b"\xFB\xE0")
