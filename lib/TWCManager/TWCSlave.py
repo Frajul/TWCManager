@@ -318,6 +318,7 @@ class TWCSlave:
         )
 
     def send_master_heartbeat(self):
+        print("Send master heartbeat <3")
         # Send our fake master's heartbeat to this TWCSlave.
         #
         # Heartbeat includes 7 bytes (Protocol 1) or 9 bytes (Protocol 2) of data
@@ -451,6 +452,8 @@ class TWCSlave:
 
         if self.master.settings.get("respondToSlaves", 1) == 0:
             # We have been instructed not to send master heartbeats
+            # Check policy to find out if charge now is activated
+            self.master.getModuleByName("Policy").setChargingPerPolicy()
             return
 
         self.master.getModuleByName("RS485").send(
@@ -461,6 +464,7 @@ class TWCSlave:
         )
 
     def receive_slave_heartbeat(self, heartbeatData):
+        print("Receive slave heartbeat <3")
         # Handle heartbeat message received from real slave TWC.
 
         self.master.queue_background_task({"cmd": "getLifetimekWh"})
