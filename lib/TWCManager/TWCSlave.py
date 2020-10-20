@@ -455,6 +455,8 @@ class TWCSlave:
             # We have been instructed not to send master heartbeats
             # Check policy to find out if charge now is activated
             self.master.getModuleByName("Policy").setChargingPerPolicy()
+            desiredAmpsOffered = self.master.getMaxAmpsToDivideAmongSlaves()
+            desiredAmpsOffered = self.set_last_amps_offered(desiredAmpsOffered)
             return
 
         self.master.getModuleByName("RS485").send(
