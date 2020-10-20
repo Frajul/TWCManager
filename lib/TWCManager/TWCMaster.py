@@ -479,7 +479,7 @@ class TWCMaster:
             total = sum([slave.voltsPhaseA for slave in slavesWithVoltage])
             phases = 1
 
-        return (total / (phases * len(slavesWithVoltage)), phases)
+        return (total / (phases * len(slavesWithVoltage)), 1)
 
     def hex_str(self, s: str):
         return " ".join("{:02X}".format(ord(c)) for c in s)
